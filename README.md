@@ -17,6 +17,8 @@ Ceci est notre projet d'infrastructure et système d'information de 2ème année
 
 Cette infra sera sous un kernel Linux (client et serveur sous CentOS 8 et Debian pour l'administrateur).
 
+Monter un vagrant file pour up fast
+
 ## I - Administration SSH
 
 Anssi sshd (pdf)
@@ -27,7 +29,7 @@ journald - syslog
 
 ## III - Monitoring/Alerting 
 
-netdata
+netdata (docker)
 
 ## IV - Documentation
 
