@@ -25,7 +25,9 @@ Anssi sshd (pdf)
 
 ## II - Sauvegarde/Centralisation (Tri) des logs
 
-journald - syslog
+journald - syslog (comment test)
+
+## Backup
 
 ## III - Monitoring/Alerting 
 
@@ -33,13 +35,20 @@ netdata (docker)
 
 ## IV - Documentation
 
-Wikijs
+Wikijs (soucis sur install postgresql)
+
+## Ticketing
+
+## DNS
 
 ## V - Management de configuration
+
+## Annuaire ldap
 
 ## VI - Sécuriser l'infra
 
 ## VII - Remise en place de service s'il est down
+
 
 
 
@@ -60,3 +69,19 @@ sudo dnf -y install https://extras.getpagespeed.com/release-el8-latest.rpm
 yum install -y libuv-devel
 sudo firewall-cmd --add-port=19999/tcp lui en permanant
 et c'est bon pute
+
+annuaire ldap 
+  * openldap = vieux, mature, compliqué à appréhender
+  * zentyal = pas pour grosse prod, adapté pme, jeune, yolo, embarque moult trucs
+  * freeipa = rcent, moderne, robuste, compliqué à mettre en oeuvre, doc très succincte, adapté quasi que à rhel-based
+backup
+*monitoring*
+Ticketing
+    * méthode kanban
+    * wekan
+
+DNS
+  * ipam
+    * netbox
+    * phpipam
+
