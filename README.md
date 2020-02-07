@@ -41,3 +41,22 @@ Wikijs
 
 ## VII - Remise en place de service s'il est down
 
+
+
+
+
+
+Nom | reseau | ip
+--- | --- | ---
+Serveur | 10.0.2.0 | 10.0.2.10
+Admin | 10.0.2.0 | 10.0.2.20
+Client | 10.0.2.0 | 10.0.2.30
+3
+
+
+
+Netdata -> add la lib 
+sudo dnf -y install https://extras.getpagespeed.com/release-el8-latest.rpm
+yum install -y libuv-devel
+sudo firewall-cmd --add-port=19999/tcp lui en permanant
+et c'est bon pute
