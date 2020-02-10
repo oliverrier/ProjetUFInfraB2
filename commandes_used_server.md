@@ -40,3 +40,44 @@ $SystemLogSocketName /run/systemd/journal/syslog
 ## Postgre pour wiki js
 
 [Tuto postgre](https://www.postgresql.org/download/linux/redhat/)
+
+Commandes à faire :
+
+```
+dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+dnf -qy module disable postgresql
+
+dnf install -y postgresql12
+
+dnf install -y postgresql12-server
+
+/usr/pgsql-12/bin/postgresql-12-setup initdb
+systemctl enable postgresql-12
+systemctl start postgresql-12
+```
+
+## Docker pour wiki js
+
+Suivre commande pour docker pour le client
+
+faire un docker compose avec la doc wiki js
+
+https://docs.docker.com/compose/gettingstarted/
+
+```
+docker run -d
+     -p 8080:3000
+     --name wiki 
+     --restart unless-stopped 
+     -e "DB_TYPE=postgres" 
+     -e "DB_HOST=db" 
+     -e "DB_PORT=5432" 
+     -e "DB_USER=wikijs" 
+     -e "DB_PASS=wikijsrocks" 
+     -e "DB_NAME=wiki" 
+     requarks/wiki:2
+
+```
+
+
