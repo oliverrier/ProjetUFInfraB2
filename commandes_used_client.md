@@ -37,7 +37,10 @@ docker run -d --name=netdata \
   netdata/netdata
 ```
 
-
+Pour être root après création vagrant
+```
+sudo su -
+```
 
 
 
