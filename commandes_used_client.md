@@ -42,6 +42,37 @@ Pour être root après création vagrant
 sudo su -
 ```
 
+Run netdata avec docker-compose
+
+faire un dossier docker, y mettre un fichier docker-compose.yml
+
+le remplir avec ça
+
+```
+version: '3'
+services:
+  netdata:
+    image: netdata/netdata
+    hostname: example.com # set to fqdn of host
+    ports:
+      - 19999:19999
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+```
+
+ensuite faire un docker-compose up -d pour le lancer
+
+
+faire un docker-compose ps pour vérifier qu'il est bien up
+
+
 
 
 
