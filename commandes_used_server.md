@@ -17,11 +17,10 @@ curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compo
 chmod +x /usr/local/bin/docker-compose
 
 
-```
- 
-```
+
+cd /srv/
 mkdir grafana
-cd grafana
+cd grafana/
 touch env.influxdb
 echo "INFLUXDB_DATA_ENGINE=tsm1
 INFLUXDB_REPORTING_DISABLED=false" >> env.influxdb
@@ -29,15 +28,11 @@ touch env.grafana
 echo "GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
 " >> env.grafana
 mkdir data
-cd /srv/docker
+cd /srv/
+mkdir docker/
+touch docker-compose.yml
 chown -R 472:472 /srv/docker/grafana/data
-```
-
-
-docker compose wikijs et grafana
-
-```
-version: "3"
+echo "version: "3"
 services:
 
   dbpostgre:
@@ -99,9 +94,9 @@ services:
       - influxdb
     volumes:
       # Data persistency
-      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
-      - /srv/docker/grafana/data:/var/lib/grafana
-      - /srv/docker/influxdb.conf:/etc/influxdb/influxdb.conf
+      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /root/docker/grafana/data
+      - /root/docker/grafana/data:/var/lib/grafana
+      - /root/docker/influxdb.conf:/etc/influxdb/influxdb.conf
     networks:
       grafana:
         aliases:
@@ -114,8 +109,10 @@ volumes:
 networks:
   wikijs:
   grafana:
+" >> docker-compose.yml
+chown vagrant:vagrant docker-compose.yml
+chmod 755 docker-compose.yml
 ```
- 
  
  
  
