@@ -29,7 +29,7 @@ touch env.grafana
 echo "GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
 " >> env.grafana
 mkdir data
-cd ../..
+cd /srv/docker
 chown -R 472:472 /srv/docker/grafana/data
 ```
 
@@ -75,14 +75,12 @@ services:
     image: influxdb:latest
     container_name: influxdb
     ports:
-      - "8083:8083"
-      - "8086:8086"
-      - "8090:8090"
+      - "4242:4242"
     env_file:
-      - '/grafana/env.influxdb'
+      - '/srv/docker/grafana/env.influxdb'
     volumes:
       # Data persistency
-      # sudo mkdir -p /srv/docker/influxdb/data
+      # sudo mkdir -p /~/docker/influxdb/data
       - /srv/docker/influxdb/data:/var/lib/influxdb
     networks:
       grafana:
@@ -95,7 +93,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - '/grafana/env.grafana'
+      - '/srv/docker/grafana/env.grafana'
     user: "0"
     links:
       - influxdb
@@ -103,6 +101,7 @@ services:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
       - /srv/docker/grafana/data:/var/lib/grafana
+      - /srv/docker/influxdb.conf:/etc/influxdb/influxdb.conf
     networks:
       grafana:
         aliases:
