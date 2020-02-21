@@ -16,9 +16,25 @@ systemctl enable docker
 curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
+
 ```
  
-docker compose wikijs
+```
+mkdir grafana
+cd grafana
+touch env.influxdb
+echo "INFLUXDB_DATA_ENGINE=tsm1
+INFLUXDB_REPORTING_DISABLED=false" >> env.influxdb
+touch env.grafana
+echo "GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
+" >> env.grafana
+mkdir data
+cd ../..
+chown -R 472:472 /srv/docker/grafana/data
+```
+
+
+docker compose wikijs et grafana
 
 ```
 version: "3"
@@ -55,11 +71,50 @@ services:
         aliases:
           - wikijs
 
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+    env_file:
+      - '/grafana/env.influxdb'
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/influxdb/data
+      - /srv/docker/influxdb/data:/var/lib/influxdb
+    networks:
+      grafana:
+        aliases:
+          - influx
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    env_file:
+      - '/grafana/env.grafana'
+    user: "0"
+    links:
+      - influxdb
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /srv/docker/grafana/data
+      - /srv/docker/grafana/data:/var/lib/grafana
+    networks:
+      grafana:
+        aliases:
+          - grafana
+
+
 volumes:
   db-data:
 
 networks:
   wikijs:
+  grafana:
 ```
  
  
