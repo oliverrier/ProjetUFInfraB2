@@ -77,6 +77,7 @@ services:
       # Data persistency
       # sudo mkdir -p /~/docker/influxdb/data
       - /srv/docker/influxdb/data:/var/lib/influxdb
+      - /srv/docker/influxdb.conf:/etc/influxdb/influxdb.conf
     networks:
       grafana:
         aliases:
@@ -96,7 +97,6 @@ services:
       # Data persistency
       # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /root/docker/grafana/data
       - /root/docker/grafana/data:/var/lib/grafana
-      - /root/docker/influxdb.conf:/etc/influxdb/influxdb.conf
     networks:
       grafana:
         aliases:
