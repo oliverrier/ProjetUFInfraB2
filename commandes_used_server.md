@@ -23,7 +23,8 @@ mkdir grafana
 cd grafana/
 touch env.influxdb
 echo "INFLUXDB_DATA_ENGINE=tsm1
-INFLUXDB_REPORTING_DISABLED=false" >> env.influxdb
+INFLUXDB_REPORTING_DISABLED=false
+INFLUXDB_DB=opentsdb" >> env.influxdb
 touch env.grafana
 echo "GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
 " >> env.grafana
@@ -60,7 +61,7 @@ services:
       DB_PASS: wikijsrocks
       DB_NAME: wiki
     ports:
-      - "8080:3000"
+      - "8080:8080"
     networks:
       wikijs:
         aliases:
@@ -75,9 +76,7 @@ services:
       - '/srv/docker/grafana/env.influxdb'
     volumes:
       # Data persistency
-      # sudo mkdir -p /~/docker/influxdb/data
-      - /srv/docker/influxdb/data:/var/lib/influxdb
-      - /srv/docker/influxdb.conf:/etc/influxdb/influxdb.conf
+      - influxdb-data:/var/lib/influxdb
     networks:
       grafana:
         aliases:
@@ -95,8 +94,7 @@ services:
       - influxdb
     volumes:
       # Data persistency
-      # sudo mkdir -p /srv/docker/grafana/data; chown 472:472 /root/docker/grafana/data
-      - /root/docker/grafana/data:/var/lib/grafana
+      - grafana-data:/var/lib/grafana
     networks:
       grafana:
         aliases:
@@ -105,6 +103,8 @@ services:
 
 volumes:
   db-data:
+  grafana-data:
+  influxdb-data:
 
 networks:
   wikijs:

@@ -10,7 +10,7 @@ cd netdata/
 ./netdata-installer.sh
 
 
-# add nodification /etc/netdata/netdata.conf
+# add notification /etc/netdata/netdata.conf
 
 
 # !!!!!!!!!!!!!!!!!! ADD BACKUP# !!!!!!!!!!!!!!!!!! ADD BACKUP# !!!!!!!!!!!!!!!!!! ADD BACKUP# !!!!!!!!!!!!!!!!!! ADD BACKUP
