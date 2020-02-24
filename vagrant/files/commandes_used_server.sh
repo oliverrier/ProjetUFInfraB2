@@ -74,7 +74,7 @@ services:
     image: influxdb:latest
     container_name: influxdb
     ports:
-      - '4242:4242'
+      - '8086:8086'
     env_file:
       - '/srv/docker/grafana/env.influxdb'
     volumes:
@@ -128,7 +128,7 @@ echo "[meta]
   
 [[opentsdb]]
   enabled = true
-  bind-address = ':4242'
+  bind-address = ':8086'
   database = 'opentsdb'
   " >> influxdb.conf
 chown vagrant:vagrant docker-compose.yml
