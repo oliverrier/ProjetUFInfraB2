@@ -1,0 +1,41 @@
+version: '3'
+services:
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    environment:
+      - "INFLUXDB_DATA_ENGINE=tsml"
+      - "INFLUXDB_REPORTING_DISABLED=false"
+      - "INFLUXDB_DB=opentsdb"
+    volumes:
+      - influxdb-data:/var/lib/influxdb
+      # - /srv/docker/influxdb.conf:/etc/influxdb/influxdb.conf
+    networks:
+      grafana:
+        aliases:
+          - influxdb
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    user: '0'
+    links:
+      - influxdb
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      grafana:
+        aliases:
+          - grafana
+
+
+volumes:
+  grafana-data:
+  influxdb-data:
+
+
+networks:
+  grafana:

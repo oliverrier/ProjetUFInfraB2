@@ -3,9 +3,10 @@
 sudo su -
 systemctl disable firewalld
 setenforce 0
-# yum check-update
-# yum update -y kernel
-# yum update -y
+yum check-update
+yum update -y kernel
+yum update -y
+cd /srv/
 dnf remove -y podman-manpages
 dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 dnf list docker-ce
@@ -19,15 +20,22 @@ chmod +x /usr/local/bin/docker-compose
 
 
 
-mkdir /srv/docker/
-mkdir /srv/docker/grafana
+cd /srv/
+mkdir docker/
+cd docker/
+mkdir grafana
+cd grafana/
+touch env.influxdb
 echo "INFLUXDB_DATA_ENGINE=tsm1
 INFLUXDB_REPORTING_DISABLED=false
-INFLUXDB_DB=opentsdb" >> /srv/docker/grafana/env.influxdb
+INFLUXDB_DB=opentsdb" >> env.influxdb
+touch env.grafana
 echo "GF_INSTALL_PLUGINS=grafana-clock-panel,briangann-gauge-panel,natel-plotly-panel,grafana-simple-json-datasource
-" >> /srv/docker/grafana/env.grafana
+" >> env.grafana
 mkdir data
 chown -R 472:472 /srv/docker/grafana/data
+cd /srv/docker
+touch docker-compose.yml
 echo "version: '3'
 services:
 
@@ -108,8 +116,8 @@ volumes:
 networks:
   wikijs:
   grafana:
-" >> /srv/docker/docker-compose.yml
-touch /srv/docker/influxdb.conf
+" >> docker-compose.yml
+touch influxdb.conf
 echo "[meta]
   dir = '/srv/docker/influxdb/meta'
 
@@ -122,6 +130,6 @@ echo "[meta]
   enabled = true
   bind-address = ':8086'
   database = 'opentsdb'
-  " >> /srv/docker/influxdb.conf
-chown vagrant:vagrant /srv/docker/docker-compose.yml
-chmod 755 /srv/docker/docker-compose.yml
+  " >> influxdb.conf
+chown vagrant:vagrant docker-compose.yml
+chmod 755 docker-compose.yml
