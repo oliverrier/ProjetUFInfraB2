@@ -32,6 +32,7 @@ mkdir -p /srv/docker/wiki
 chown vagrant:vagrant /srv/docker/monitoring
 chown vagrant:vagrant /srv/docker/wiki
 mv /home/vagrant/monitoring-compose.yml /srv/docker/monitoring/docker-compose.yml
+mv /home/vagrant/prometheus.yml /srv/docker/monitoring/prometheus.yml
 mv /home/vagrant/wiki-compose.yml /srv/docker/wiki/docker-compose.yml
 docker-compose -f /srv/docker/monitoring/docker-compose.yml up -d && \
 docker-compose -f /srv/docker/wiki/docker-compose.yml up -d
