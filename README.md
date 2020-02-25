@@ -7,88 +7,31 @@
 
 Ceci est notre projet d'infrastructure et système d'information de 2ème année à Ynov Informatique, où nous avons choisi d'avoir les thèmes principaux suivant:
 
-    - Administration SSH
     - Sauvegarde/Centralisation (Tri) des logs
     - Monitoring / Alerting
     - Documentation
-    - Management de configuration
-    - Sécurisation infra
-    - Remise en place d'un service s'il tombe
+    - Docker & vagrant
 
-Cette infra sera sous un kernel Linux (client et serveur sous CentOS 8 et Debian pour l'administrateur).
-
-Monter un vagrant file pour up fast
-
-## I - Administration SSH
-
-Anssi sshd (pdf)
-
-## II - Sauvegarde/Centralisation (Tri) des logs
-
-journald - syslog (comment test)
-
-## Backup
-
-## III - Monitoring/Alerting 
-
-netdata (docker)
-
-## IV - Documentation
-
-Wikijs (soucis sur install postgresql)
-
-
-## Ticketing
-
-## DNS
-
-## V - Management de configuration
-
-## Annuaire ldap
-
-## VI - Sécuriser l'infra
-
-## VII - Remise en place de service s'il est down
-
-
-
-
+Cette infra sera sous un kernel Linux (client et serveur sous CentOS 8).
 
 
 
 Nom | reseau | ip
 --- | --- | ---
-Serveur | 10.0.2.0 | 10.0.2.10
-Admin | 10.0.2.0 | 10.0.2.20
-Client | 10.0.2.0 | 10.0.2.30
-3
+Serveur | 192.168.56.0 | 192.168.56.100
+Client-1 | 192.168.56.0 | 192.168.56.111
+Client-2 | 192.168.56.0 | 192.168.56.112
 
 
+## I - Sauvegarde/Centralisation (Tri) des logs
 
-Netdata -> add la lib 
-sudo dnf -y install https://extras.getpagespeed.com/release-el8-latest.rpm
-yum install -y libuv-devel
-sudo firewall-cmd --add-port=19999/tcp lui en permanant
-et c'est bon pute
+journald - syslog (comment test)
 
-annuaire ldap 
-  * openldap = vieux, mature, compliqué à appréhender
-  * zentyal = pas pour grosse prod, adapté pme, jeune, yolo, embarque moult trucs
-  * freeipa = rcent, moderne, robuste, compliqué à mettre en oeuvre, doc très succincte, adapté quasi que à rhel-based
-backup
-*monitoring*
-Ticketing
-    * méthode kanban
-    * wekan
+## II - Monitoring/Alerting 
 
-DNS
-  * ipam
-    * netbox
-    * phpipam
+Concernant le monitoring et l'alerting, nous avons mis en place netdata sur nos clients et une centralisation des netdata sur le server visible grâce à grafana (en docker) accessible par interface web à l'adresse suivante: http://192.168.56.100:3000 lorsque le serveur est up. 
 
+## III - Wiki
 
-Antoine:
-  commence vagrant file / répare backup
-
-Olivier:
-  fini sshd
+Pour la documentation interne, nous avons un wikijs (en docker) accessible sur le serveur à l'adresse : http://192.168.56.100:8080
+)
