@@ -7,6 +7,7 @@ Afin d'avoir le projet il vous faudra cloner le dépôt git.
 <details>
 <summary>Cloner le dépôt</summary>
 <br>
+
 en HTTPS : `git clone https://github.com/oliverrier/ProjetUFInfraB2.git`
 
 en SSH : `git clone ssh://git@github.com/oliverrier/ProjetUFInfraB2.git`
@@ -33,6 +34,6 @@ Pour lancer le projet, il vous suffira de vous mettre dans le dossier vagrant qu
 Au bout d'un moment vous devriez avoir accès à grafana et à wikijs depuis votre navigateur.
 
 
-## V - Problème rencontrés
+## V - Problème rencontré
 
 Si vous n'arrivez pas à accéder aux interfaces web de grafana et de wikijs sur le serveur, vérifier sur virtualbox que l'interface réseau utilisée par vos VMs n'attribue pas son IP en DHCP, cela peut provoquer des conflits.
