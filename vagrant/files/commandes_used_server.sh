@@ -14,8 +14,8 @@ systemctl start docker
 systemctl enable docker
 
 
-curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+# curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# chmod +x /usr/local/bin/docker-compose
 
 
 
@@ -31,36 +31,36 @@ chown -R 472:472 /srv/docker/grafana/data
 echo "version: '3'
 services:
 
-  dbpostgre:
-    image: postgres:11-alpine
-    environment:
-      POSTGRES_DB: wiki
-      POSTGRES_PASSWORD: wikijsrocks
-      POSTGRES_USER: wikijs
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    networks:
-      wikijs:
-        aliases:
-          - db
+#   dbpostgre:
+#     image: postgres:11-alpine
+#     environment:
+#       POSTGRES_DB: wiki
+#       POSTGRES_PASSWORD: wikijsrocks
+#       POSTGRES_USER: wikijs
+#     volumes:
+#       - db-data:/var/lib/postgresql/data
+#     networks:
+#       wikijs:
+#         aliases:
+#           - db
 
-  wiki:
-    image: requarks/wiki:2
-    depends_on:
-      - dbpostgre
-    environment:
-      DB_TYPE: postgres
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USER: wikijs
-      DB_PASS: wikijsrocks
-      DB_NAME: wiki
-    ports:
-      - '8080:3000'
-    networks:
-      wikijs:
-        aliases:
-          - wikijs
+#   wiki:
+#     image: requarks/wiki:2
+#     depends_on:
+#       - dbpostgre
+#     environment:
+#       DB_TYPE: postgres
+#       DB_HOST: db
+#       DB_PORT: 5432
+#       DB_USER: wikijs
+#       DB_PASS: wikijsrocks
+#       DB_NAME: wiki
+#     ports:
+#       - '8080:3000'
+#     networks:
+#       wikijs:
+#         aliases:
+#           - wikijs
 
   influxdb:
     image: influxdb:latest
@@ -113,10 +113,10 @@ touch /srv/docker/influxdb.conf
 echo "[meta]
   dir = '/srv/docker/influxdb/meta'
 
-[data]
-  dir = '/srv/docker/influxdb/data'
-  engine = 'tsm1'
-  wal-dir = '/var/lib/influxdb/wal'
+# [data]
+#   dir = '/srv/docker/influxdb/data'
+#   engine = 'tsm1'
+#   wal-dir = '/var/lib/influxdb/wal'
   
 [[opentsdb]]
   enabled = true

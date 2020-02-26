@@ -5,6 +5,12 @@ setenforce 0
 yum update -y
 yum autoremove -y
 
+sed -i 's/#module(load="imudp")/module(load="imudp")/g' /etc/rsyslog.conf
+sed -i 's/#input(type="imudp" port="514")/input(type="imudp" port="514")/g' /etc/rsyslog.conf
+
+systemctl restart rsyslog
+systemctl enable rsyslog
+
 # install docker
 # cf https://docs.docker.com/install/linux/docker-ce/centos/
 yum install -y yum-utils \
@@ -33,6 +39,8 @@ chown vagrant:vagrant /srv/docker/monitoring
 chown vagrant:vagrant /srv/docker/wiki
 mv /home/vagrant/monitoring-compose.yml /srv/docker/monitoring/docker-compose.yml
 mv /home/vagrant/prometheus.yml /srv/docker/monitoring/prometheus.yml
+mv /home/vagrant/promtail.yml /srv/docker/monitoring/promtail.yml
+mv /home/vagrant/loki.yml /srv/docker/monitoring/loki.yml
 mv /home/vagrant/wiki-compose.yml /srv/docker/wiki/docker-compose.yml
 docker-compose -f /srv/docker/monitoring/docker-compose.yml up -d && \
 docker-compose -f /srv/docker/wiki/docker-compose.yml up -d

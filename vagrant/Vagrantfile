@@ -12,10 +12,11 @@ Vagrant.configure("2") do |config|
     server.vm.hostname = "server"
     server.vm.provision "file", source:"./compose/monitoring-compose.yml", destination: "/home/vagrant/monitoring-compose.yml"
     server.vm.provision "file", source:"./compose/prometheus.yml", destination: "/home/vagrant/prometheus.yml"
+    server.vm.provision "file", source:"./compose/loki.yml", destination: "/home/vagrant/loki.yml"
+    server.vm.provision "file", source:"./compose/promtail.yml", destination: "/home/vagrant/promtail.yml"
     server.vm.provision "file", source:"./compose/wiki-compose.yml", destination: "/home/vagrant/wiki-compose.yml"
     server.vm.provision "shell", path:"./compose/server.sh"
   end
-  
     (1..2).each do |i|
     config.vm.define "client-#{i}" do |clients|
       clients.vm.box = "centos/8"

@@ -29,10 +29,39 @@ services:
         aliases:
           - grafana
 
+  loki:
+    image: grafana/loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki.yml:/etc/loki/loki.yml
+      - loki-data:/var/lib/loki
+    command: 
+    - '--config.file=/etc/loki/loki.yml'
+    networks:
+      grafana:
+          aliases:
+            - loki
+
+  promtail:
+    image: grafana/promtail
+    ports:
+      - "9080:9080"
+    volumes:
+      - ./promtail.yml:/etc/promtail/promtail.yml
+      - /var/log:/var/log
+    command: 
+      - '--config.file=/etc/promtail/promtail.yml'
+    networks:
+      grafana:
+          aliases:
+            - promtail
+
 
 volumes:
   grafana-data:
   prometheus-data:
+  loki-data:
 
 
 networks:
