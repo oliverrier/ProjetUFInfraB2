@@ -25,7 +25,9 @@ Client-2 | 192.168.56.0 | 192.168.56.112
 
 ## I - Sauvegarde/Centralisation (Tri) des logs
 
-journald - syslog (comment test)
+Les logs sont centralisés sur le server et accessible via le grafana du serveur à l'adresse suivante : http://192.168.56.100:3000
+
+Pour afficher les logs, sur Grafana, aller dans Explore (la petite boussole), cliquer sur Log Labels, sélectionner File name et prenez /var/log/messages
 
 ## II - Monitoring/Alerting 
 
